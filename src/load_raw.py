@@ -29,6 +29,11 @@ def main():
 
     engine = get_engine()
 
+    print(f"Truncating {SCHEMA}.{TABLE} ...")
+    with engine.begin() as conn:
+        conn.execute(text(f"TRUNCATE {SCHEMA}.{TABLE};"))
+
+    print(f"Loading into {SCHEMA}.{TABLE} ...")
     df.to_sql(
         TABLE,
         engine,
